@@ -114,8 +114,12 @@ const getProfile = async (req, res) => {
         // Exclude password
       },
     });
+    if (user && user.dob) {
+      user.dob = user.dob.toISOString().split('T')[0];
+    }
     res.json(user);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: 'Server error' });
   }
 };
